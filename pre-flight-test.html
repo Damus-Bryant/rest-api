@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pre-Flight CORS Test</title>
+</head>
+<body>
+
+<h2>Pre-Flight (OPTIONS) CORS Test</h2>
+
+<button id="btnPreflightPost">Send PRE-FLIGHT (Post) Request</button>
+<button id="btnPreflightDelete">Send PRE-FLIGHT (Delete) Request</button>
+<button id="btnPreflightPut">Send PRE-FLIGHT (Put) Request</button>
+
+<script>
+  const API = "http://localhost:3000/orders"; // your API endpoint
+
+  function sendPreflight(method) {
+    fetch(API, {
+      method: "OPTIONS",
+      headers: {
+        "Origin": "http://127.0.0.1:5500",                    // browser origin
+        "Access-Control-Request-Method": method,              // method being tested
+        "Access-Control-Request-Headers": "Content-Type"      // headers being tested
+      }
+    })
+    .then(res => {
+      console.log(`Pre-flight (${method}) Response Status:`, res.status);
+      return res.text();
+    })
+    .then(text => console.log("Response Body:", text))
+    .catch(err => console.error("Pre-flight Error:", err));
+  }
+
+  document.getElementById("btnPreflightPost").onclick   = () => sendPreflight("POST");
+  document.getElementById("btnPreflightDelete").onclick = () => sendPreflight("DELETE");
+  document.getElementById("btnPreflightPut").onclick    = () => sendPreflight("PUT");
+</script>
+
+</body>
+</html>

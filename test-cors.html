@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS Test</title>
+</head>
+<body>
+
+<button id="fetchButton">Test CORS</button>
+
+<script>
+    const apiUrl = 'http://localhost:3000/orders'; // your API
+
+    document.getElementById('fetchButton').addEventListener('click', () => {
+        fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            console.log("CORS Success:", data);
+        })
+        .catch(error => {
+            console.error("CORS Error:", error);
+        });
+    });
+</script>
+
+</body>
+</html>
